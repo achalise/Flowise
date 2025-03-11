@@ -11,6 +11,7 @@ CREATE DATABASE my_db;
 ```
 * create a user in the db:
 
+```
 CREATE DATABASE my_db;
 CREATE USER flowuser WITH PASSWORD 'wolf123';
 GRANT GRANT rds_iam TO flowuser;
@@ -18,11 +19,12 @@ ALTER DEFAULT PRIVILEGES IN SCHEMA public
 GRANT USAGE, CREATE ON SCHEMA public TO flowuser;
 GRANT SELECT, INSERT, UPDATE, DELETE ON TABLES TO flowuser;
 CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
+```
 
 * create following IAM policy:
 Give a policy name, e.g., DbIamAUth, and ensure that that the arn below is in the following format, where DbClusterResourceId is the resource id that you can get from the db config in aws console.
 
-arn:aws:rds-db:region:account-id:dbuser:DbClusterResourceId/db-user-name
+`arn:aws:rds-db:region:account-id:dbuser:DbClusterResourceId/db-user-name`
 
 
 
@@ -57,10 +59,11 @@ aws --profile pg-user rds generate-db-auth-token \
 
 ### Testing using psql
 
+```
 IAM_TOKEN=$(aws --profile pg-user rds generate-db-auth-token \
   --hostname database-1.ce9wstaass0m.ap-southeast-2.rds.amazonaws.com \
   --port 5432 \
   --region ap-southeast-2 \
   --username flowuser)
 psql "host=database-1.ce9wstaass0m.ap-southeast-2.rds.amazonaws.com port=5432 dbname=my_db user=flowuser password=$IAM_TOKEN"
-
+```
