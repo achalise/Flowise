@@ -35,9 +35,14 @@ vault write auth/pg-auth-mount/role/role1 \
    ttl=24h
 ```
 ### Create the Secret entry in Vault
-`vault kv put kvv2/webapp/config username="postgres" password="postgres" awskey="aws_key_for_rds_user" awssecret="aws_secret_for_rds_user"`
+```
+vault kv put kvv2/webapp/config username="postgres" password="postgres" awskey="aws_key_for_rds_user" awssecret="aws_secret_for_rds_user"
+```
 
 ### Install Vault Operator
-```helm install vault-secrets-operator hashicorp/vault-secrets-operator -n vault-secrets-operator-system --create-namespace --values chart/vault-operator-values.yaml```
+
+```
+helm install vault-secrets-operator hashicorp/vault-secrets-operator -n vault-secrets-operator-system --create-namespace --values chart/vault-operator-values.yaml
+```
 
 
